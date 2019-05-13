@@ -110,20 +110,6 @@ export default {
       if (opts && opts.beforeRequest && typeof opts.beforeRequest === 'function') {
         opts.beforeRequest(options)
       }
-      // let token = Cookie.get(appConfig.cookie.TOKEN)
-      // if (!options.headers) options.headers = {}
-      // if (token) {
-      //   options.headers[appConfig.headers.ACCESS_TOKEN] = token
-      // }
-      // // 携带浏览器标识
-      // let browser = getBrowser()
-      // if (browser) {
-      //   options.headers[appConfig.headers.BROWSER] = browser
-      // }
-      // let os = getOS()
-      // if (os) {
-      //   options.headers[appConfig.headers.OS] = os
-      // }
       return handleResponse(Vue, await axios.request(options).catch(err => { console.error(err) }))
     }
 

@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "vue-api-manager",
   "version": "1.0.0-alpha",
   "description": "An api manager bases on Vue",
   "author": "msidolphin",

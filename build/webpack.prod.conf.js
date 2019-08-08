@@ -23,12 +23,12 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   entry: {
-    'create-api': './src/create-api.js'
+    'api-creator': './src/index.js'
   },
   output: {
     path: path.join(__dirname, '../dist'),
     filename: 'index.js',
-    library: 'create-api',
+    library: 'api-creator',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

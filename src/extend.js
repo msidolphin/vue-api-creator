@@ -1,16 +1,20 @@
+/* istanbul ignore next */
 const isFunction = function (fn) {
   return Object.prototype.toString.call(fn) === '[object Function]'
 }
 
+/* istanbul ignore next */
 const isArray = Array.isArray || /* istanbul ignore next */ function (ary) {
   return Object.prototype.toString.call(ary) === '[object Array]'
 }
 
+/* istanbul ignore next */
 const isPlainObject = function (obj) {
   return Object.prototype.toString.call(obj) === '[object Object]' && Object.getPrototypeOf(obj) === Object.prototype
 }
 
-export function extend () {
+/* istanbul ignore next */
+export function extend() {
   let options
   let name
   let src

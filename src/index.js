@@ -7,7 +7,7 @@ import { createAxios } from './create-axios'
 
 /**
  * modules
- * permanentErrors: [404, 415, 500, 501]
+ * permanentErrors: [404, 415, 500, 501, 429]
  * axios axios配置
  * beforeRequest
  * afterRequest

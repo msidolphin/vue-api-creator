@@ -6,6 +6,7 @@ describe('utils.js', () => {
             code: 500,
             msg: 'ok',
             success: false,
+            isInternalError: false,
             data: undefined,
             response: {},
             config: {},
@@ -15,6 +16,7 @@ describe('utils.js', () => {
             code: 500,
             msg: 'ok',
             success: false,
+            isInternalError: false,
             data: {
                 a: 1
             },

@@ -1,31 +1,38 @@
-# vue-api-manager
+# vue-api-creator
 
-> An api manager bases on Vue and Element-UI
+> An api manager bases on axios
 
 ## Usage
 
 ### Install
 
 ```bash
-npm install vue-api-manager -S
+npm install vue-api-creator -S
 ```
 
 ```js
 import api from './api'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import ApiCreator from '../dist'
+import ApiCreator from 'vue-api-creator'
 
-Vue.use(ElementUI)
 Vue.use(ApiCreator, {
+  baseURL: '/baseURL'
   modules: api,
+  // Response fails if response status is in this list
+  permanentErrors: [404, 415, 500, 501, 429],
   beforeRequest (options) {
     console.log(options)
   },
-  axios: {
-    baseURL: '/base-url'
+  afterRequest (res) {
+    console.log(res)
   },
-  mock: 'mock address'
+  onError (err) {
+    if (err.isInternalError) {
+      console.log('An exception has occurred on your network')
+    } else {
+      console.log('An error response from server')
+    }
+  },
+  mock: 'https://www.xxxx.com'
 })
 ```
 
@@ -58,10 +65,10 @@ export default {
     api: [
       {
         name: 'list',
-        desc: 'get app list',
+        desc: 'get apps',
         method: 'GET',
         path: 'list',
-        mock: false
+        mock: true // enable mock
       }
     ]
 }

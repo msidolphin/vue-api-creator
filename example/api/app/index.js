@@ -3,7 +3,7 @@ export default {
     api: [
       {
         name: 'list',
-        desc: '获取应用列表',
+        desc: 'get apps',
         method: 'GET',
         path: 'list'
       }

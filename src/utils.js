@@ -1,4 +1,10 @@
-export function createError(code, msg, data, response = {}, config = {}, request = {}) {
+export function createError(code,
+    msg,
+    data,
+    response = {},
+    config = {},
+    request = {},
+    isInternalError = false) {
     return {
         code,
         msg,
@@ -6,7 +12,8 @@ export function createError(code, msg, data, response = {}, config = {}, request
         success: false,
         response,
         config,
-        request
+        request,
+        isInternalError
     }
 }
 
@@ -18,6 +25,8 @@ export function onError (config, res) {
         request = {},
         statusText: msg
     } = res
+    let permanentErrors = config && config.permanentErrors || []
+    let isInternalError = permanentErrors.indexOf(res.status) !== -1
     if (config && config.onError && typeof config.onError === 'function') {
         config.onError(
             createError(
@@ -26,10 +35,12 @@ export function onError (config, res) {
                 data,
                 res,
                 $config,
-                request
+                request,
+                isInternalError
             )
         )
     }
+    return isInternalError
 }
 
 export const isString = function (target) {

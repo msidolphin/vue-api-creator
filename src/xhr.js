@@ -12,8 +12,8 @@ export default function request (axios, config, options) {
             let {response = {}, request = {}} = err
             let config = response.config
             let { status: code, statusText: msg } = response
-            onError(_config, response)
-            reject(createError(code, msg, response.data, response, config, request))
+            let isInternalError = onError(_config, response)
+            reject(createError(code, msg, response.data, response, config, request, isInternalError))
         })
     })
 }

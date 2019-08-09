@@ -1,0 +1,7 @@
+language: node_js
+sudo: required
+node_js: 10
+script: 'npm run test'
+before_script:
+  - 'sudo chown root /opt/google/chrome/chrome-sandbox'
+  - 'sudo chmod 4755 /opt/google/chrome/chrome-sandbox'

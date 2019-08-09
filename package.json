@@ -6,12 +6,12 @@
   "private": false,
   "main": "dist/index.js",
   "bugs": {
-    "url": "https://github.com/msidolphin/vue-api-manager/issues"
+    "url": "https://github.com/msidolphin/vue-api-creator/issues"
   },
-  "homepage": "https://github.com/msidolphin/vue-api-manager",
+  "homepage": "https://github.com/msidolphin/vue-api-creator",
   "repository": {
     "type": "git",
-    "url": "git@github.com:msidolphin/vue-api-manager.git"
+    "url": "git@github.com:msidolphin/vue-api-creator.git"
   },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

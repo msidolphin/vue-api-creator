@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "unit": "jest --config test/unit/jest.conf.js --coverage --coverageReporters=text-lcov",
     "unit:dev": "jest --config test/unit/jest.conf.js --coverage --watchAll",
     "test": "npm run unit",
     "test:dev": "npm run unit:dev",

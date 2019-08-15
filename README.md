@@ -1,5 +1,8 @@
 # vue-api-creator
 
+[![Build Status](https://travis-ci.org/msidolphin/vue-api-creator.svg?branch=master)](https://travis-ci.org/msidolphin/vue-api-creator)
+[![Coverage Status](https://coveralls.io/repos/github/msidolphin/vue-api-creator/badge.svg?branch=master)](https://coveralls.io/github/msidolphin/vue-api-creator?branch=master)
+
 > An api manager bases on axios
 
 ## Usage
@@ -82,3 +85,23 @@ export default {
     app
 }
 ```
+
+### Configuration
+
+#### ApiCreator config
+
+* `baseURL`: The base URL of the request. 
+* `modules`: Api modules.
+* `permanentErrors`: Response fails if response status is in this list, default: [404, 415, 500, 501, 429].
+* `beforeRequest`: Called before the request is sent.
+* `afterRequest`: Called after the request was received.
+* `onError`: An error occurred during send request or server response, eg: status code in permanentErrors, the request was made but no response was received...
+* `mock`: The base URL of the mock server.
+
+#### Api config
+
+* `name`: It is api's name.
+* `desc`: The description of the api.
+* `method`: The request method to be used when making the request.
+* `path`: It is the server URL that will be used for the request.
+* `mock`: Enable mock to the request.

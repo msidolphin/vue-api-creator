@@ -86,6 +86,19 @@ export default {
 }
 ```
 
+### Server Response Structure
+
+Your server response body shoule be like this:
+
+```
+{
+  code: Number, // status code
+  success: Boolean, // whether the response was successful 
+  msg: String, // response message
+  data: <T> // response data
+}
+```
+
 ### Configuration
 
 #### ApiCreator config
@@ -105,3 +118,8 @@ export default {
 * `method`: The request method to be used when making the request.
 * `path`: It is the server URL that will be used for the request.
 * `mock`: Enable mock to the request.
+
+## License
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright © 2019, msidolphin

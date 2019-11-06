@@ -103,8 +103,9 @@ Your server response body shoule be like this:
 
 #### ApiCreator config
 
-* `baseURL`: The base URL of the request. 
+* `baseURL`: The base URL of the request. (String or Function)
 * `modules`: Api modules.
+* `axios`: axios instance.
 * `permanentErrors`: Response fails if response status is in this list, default: [404, 415, 500, 501, 429].
 * `beforeRequest`: Called before the request is sent.
 * `afterRequest`: Called after the request was received.

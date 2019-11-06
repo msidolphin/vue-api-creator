@@ -6,7 +6,16 @@ describe('transformPath.js', () => {
             const config = {
                 baseURL: '/api',
                 mock: 'https://www.mock.com'
-            
+            }
+            expect(transformPath(config, '', {}, false)).toBe('/api')
+            expect(transformPath(config, '/user/list', {}, false)).toBe('/api/user/list')
+        })
+        it('when baseURL is function', () => {
+            const config = {
+                baseURL () {
+                    return '/api'
+                },
+                mock: 'https://www.mock.com'
             }
             expect(transformPath(config, '', {}, false)).toBe('/api')
             expect(transformPath(config, '/user/list', {}, false)).toBe('/api/user/list')

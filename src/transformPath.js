@@ -3,6 +3,7 @@ import { isEmpty, isPlainObject, getType } from './utils'
 
 function getBaseUrl (config, isMock) {
     if (isMock) return config.mock
+    else if (typeof config.baseURL === 'function') return config.baseURL()
     else return config.baseURL
 }
 

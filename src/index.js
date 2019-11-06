@@ -4,6 +4,7 @@ import transformOptios from './transformOptions'
 import xhr from './xhr'
 import transformResponse from './transformResponse'
 import { createAxios } from './create-axios'
+import { isPlainObject } from './utils'
 
 /**
  * modules
@@ -18,7 +19,7 @@ export default {
   install: (Vue, settings) => {
     let defaultconfig = {
       permanentErrors: [500, 404, 504, 501, 415, 429],
-      axios: {}
+      axios: null
     }
     let config = extend(true, defaultconfig, settings)
     /* istanbul ignore else */
@@ -27,7 +28,7 @@ export default {
     }
     /* istanbul ignore else */
     if (config.axios && config.axios.baseURL) delete config.axios.baseURL
-    const axios = createAxios(config)
+    const axios = config.axios && !isPlainObject(config.axios) ? config.axios : createAxios(config)
     /* istanbul ignore next */
     if (!config.modules) {
       throw new Error(`Invalid parameter: option "modules" expected Object, got empty.`)

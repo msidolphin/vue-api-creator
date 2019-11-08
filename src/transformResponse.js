@@ -2,7 +2,7 @@ import { createError, onError } from './utils'
 
 
 
-export default function transformResponse (res, config) {
+export default function transformResponse (res, config, returnOriginResponse = false) {
     if (config && config.afterRequest && typeof config.afterRequest === 'function') {
         config.afterRequest(res)
     }
@@ -40,7 +40,7 @@ export default function transformResponse (res, config) {
                     request
                 ))
             } else {
-                resolve(data.data)
+                resolve(returnOriginResponse ? data : data.data)
             }
         }
     })

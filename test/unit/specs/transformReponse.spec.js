@@ -65,6 +65,18 @@ describe('transformResponse.js', () => {
         })
     })
 
+    it('response success and return origin response data', () => {
+        let response = createSuccessResponse()
+        const config = {
+            permanentErrors: [404, 415, 500, 501]
+        }
+        return transformResponse(response, config, true).then(res => {
+            expect(res).toEqual(response.data)
+        }).catch(() => {
+            expect(false).toBeTruthy()
+        })
+    })
+
     it('response failed because of the network, etc', () => {
         let response = createFailedResponseDueToNetwork()
         const config = {

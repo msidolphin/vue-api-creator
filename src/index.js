@@ -14,6 +14,7 @@ import { isPlainObject } from './utils'
  * afterRequest
  * baseURL
  * mock
+ * returnOriginResponse
  */
 export default {
   install: (Vue, settings) => {
@@ -34,10 +35,15 @@ export default {
       throw new Error(`Invalid parameter: option "modules" expected Object, got empty.`)
     }
     const apis = transformApi(config.modules)
-    Vue.prototype.$api = function http (name, params, headers = {}) {
+    Vue.prototype.$api = function http (name, params, headers = {}, returnOriginResponse = !!config.returnOriginResponse) {
+      /* istanbul ignore next */
+      if (!isPlainObject(headers)) {
+        returnOriginResponse = !!headers
+        headers = {}
+      }
       return new Promise((resolve, reject) => {
         xhr(axios, config, transformOptios(config, apis, {name, params: params ? JSON.parse(JSON.stringify( params)) : {}, headers})).then(response => {
-          transformResponse(response, config).then(result => {
+          transformResponse(response, config, returnOriginResponse).then(result => {
             resolve(result)
           }).catch(err => {
             reject(err)

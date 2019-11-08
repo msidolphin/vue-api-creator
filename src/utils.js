@@ -17,7 +17,7 @@ export function createError(code,
     }
 }
 
-export function onError (config, res) {
+export function onError (config, res, isNetworkError = false) {
     let {
         data = {}, 
         status: code,
@@ -26,7 +26,7 @@ export function onError (config, res) {
         statusText: msg
     } = res
     let permanentErrors = config && config.permanentErrors || []
-    let isInternalError = permanentErrors.indexOf(res.status) !== -1
+    let isInternalError = !isNetworkError ? permanentErrors.indexOf(res.status) !== -1 : true
     if (config && config.onError && typeof config.onError === 'function') {
         config.onError(
             createError(

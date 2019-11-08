@@ -9,10 +9,12 @@ export default function request (axios, config, options) {
         axios.request(options).then(response => {
             resolve(response)
         }).catch((err = {}) => {
-            let {response = {}, request = {}} = err
+            let {response = {config: options, statusText: err.message, data: {}}, request = {}} = err
             let config = response.config
             let { status: code, statusText: msg } = response
-            let isInternalError = onError(_config, response)
+            if (!msg) msg = response.statusText
+            let isInternalError = true
+            onError(_config, response, isInternalError)
             reject(createError(code, msg, response.data, response, config, request, isInternalError))
         })
     })

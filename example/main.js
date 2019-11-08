@@ -20,6 +20,7 @@ Vue.use(ApiCreator, {
     // noop
   },
   onError (err) {
+    console.log(err)
     if (isDev) {
       Vue.prototype.$notify.error({
         title: 'Request Error',

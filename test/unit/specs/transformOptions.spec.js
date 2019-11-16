@@ -100,8 +100,7 @@ describe('transformOptions.js', () => {
             url: '/api/cms/news/list',
             method: 'GET',
             desc: 'list',
-            headers: {},
-            params: {}
+            headers: {}
         })
     })
 

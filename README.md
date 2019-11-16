@@ -119,6 +119,8 @@ Your server response body shoule be like this:
 * `method`: The request method to be used when making the request.
 * `path`: It is the server URL that will be used for the request.
 * `mock`: Enable mock to the request.
+* `params`: query params (Array or Boolean). eg: params: ['id', 'name'] => /api/xxxx?id=1&name=2
+* `body`: body params (Array or Boolean). eg: body: ['ids', 'names'] => {ids: [1], names: ['a', 'b']}
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)

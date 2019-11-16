@@ -1,5 +1,6 @@
 import transformPath from './transformPath'
-import { isString, isEmpty, getType } from './utils'
+import { isString, isEmpty, getType, isPlainObject } from './utils'
+import { isBoolean } from 'util'
 
 function getNamespaceAndApiName (name) {
     checkType(name, 'String', 'name')
@@ -21,6 +22,47 @@ function checkType (target, t, name) {
         throw new Error(`Invalid parameter: prop "${name}" expected ${t}, got ${type}.`)
     }
     return true
+}
+
+function injectParams (api, params, opts) {
+    if (isPlainObject(params)) {
+        let keys = Object.keys(params)
+        let ps = Array.isArray(api.params) ? api.params : isBoolean(api.params) ? keys : []
+        let ds = Array.isArray(api.body) ? api.body : isBoolean(api.body) ? keys : []
+        keys.forEach(key => {
+            if (ps.findIndex(p => p === key) !== -1) {
+                if (!opts.params) opts.params = {}
+                opts.params[key] = params[key]
+            } else if (ds.findIndex(p => p === key) !== -1) {
+                if (!opts.data) opts.data = {}
+                opts.data[key] = params[key]
+            } else {
+                if (['get', 'delete', 'head', 'options'].indexOf(api.method.toLowerCase()) !== -1) {
+                    if (!opts.params) opts.params = {}
+                    opts.params[key] = params[key]
+                } else {
+                    if (!opts.data) opts.data = {}
+                    opts.data[key] = params[key]
+                }
+            }
+        })
+    } else {
+        if (!api.params && !api.body) {
+            if (['get', 'delete', 'head', 'options'].indexOf(api.method.toLowerCase()) !== -1) {
+                opts.params = params
+            } else {
+                opts.data = params
+            }
+        } else {
+            if (api.params) {
+                opts.params = params
+            }
+            if (api.body) {
+                opts.data = params
+            }
+        }
+    }
+    return opts
 }
 
 export default function (config, apis, {name, params = {}, headers = {}}) {
@@ -47,10 +89,6 @@ export default function (config, apis, {name, params = {}, headers = {}}) {
         desc: targetApi.desc,
         headers
     }
-    if (['get', 'delete', 'head', 'options'].indexOf(targetApi.method.toLowerCase()) !== -1) {
-        requestObj.params = params
-    } else {
-        requestObj.data = params
-    }
+    requestObj = injectParams(targetApi, params, requestObj)
     return requestObj
 }

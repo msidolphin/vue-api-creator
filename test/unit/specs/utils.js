@@ -120,6 +120,21 @@ export const modules = {
                     desc: 'detail',
                     method: 'GET',
                     path: 'detail'
+                },
+                {
+                    name: 'delete',
+                    desc: 'delete',
+                    method: 'DELETE',
+                    path: 'delete',
+                    body: true
+                },
+                {
+                    name: 'post',
+                    desc: 'post',
+                    method: 'POST',
+                    path: 'post',
+                    body: ['ids'],
+                    params: ['code', 'name']
                 }
             ]
         }

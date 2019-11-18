@@ -5,6 +5,8 @@
 
 > An api manager bases on axios
 
+[中文文档](./README_CN.md)
+
 ## Usage
 
 ### Install

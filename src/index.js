@@ -23,11 +23,11 @@ export default {
       axios: null
     }
     let config = extend(true, defaultconfig, settings)
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (!config.baseURL && config.axios && config.axios.baseURL) {
       config.baseURL = config.axios.baseURL
     }
-    /* istanbul ignore else */
+    /* istanbul ignore next */
     if (config.axios && config.axios.baseURL) delete config.axios.baseURL
     const axios = config.axios && !isPlainObject(config.axios) ? config.axios : createAxios(config)
     /* istanbul ignore next */

@@ -21,12 +21,14 @@ export function extend() {
   let copy
   let copyIsArray
   let clone
+  /* istanbul ignore next */
   let target = arguments[0] || {}
   let i = 1
   let length = arguments.length
   let force = false
 
   // 如果第一个参数为布尔,判定是否深拷贝
+  /* istanbul ignore next */
   if (typeof target === 'boolean') {
     force = target
     target = arguments[1] || {}
@@ -34,11 +36,13 @@ export function extend() {
   }
 
   // 确保接受方为一个复杂的数据类型
+  /* istanbul ignore next */
   if (typeof target !== 'object' && !isFunction(target)) {
     target = {}
   }
 
   // 如果只有一个参数，那么新成员添加于 extend 所在的对象上
+  /* istanbul ignore next */
   if (i === length) {
     target = this
     i--
@@ -46,6 +50,7 @@ export function extend() {
 
   for (; i < length; i++) {
     // 只处理非空参数
+    /* istanbul ignore next */
     if ((options = arguments[i]) != null) {
       for (name in options) {
         src = target[name]

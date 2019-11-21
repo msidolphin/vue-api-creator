@@ -54,14 +54,17 @@ function getApi (paths, target) {
  */
 export default function createApi (target, apis = {}, paths = [], level = 0) {
   if (isApi(target)) {
+    /* istanbul ignore else */
     if (!paths.join('/')) {
       apis['api'] = getApi(paths, target)
     } else {
+      /* istanbul ignore next */
       apis[paths.join('/')] = getApi(paths, target)
     }
   } else {
     Object.keys(target).forEach((name) => {
       paths[level] = name
+      /* istanbul ignore next */
       if (paths.length > level + 1) {
         paths.splice(level + 1, paths.length - level + 1)
       }

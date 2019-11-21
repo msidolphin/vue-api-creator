@@ -24,19 +24,24 @@ function checkType (target, t, name) {
     return true
 }
 
-function injectParams (api, params, opts) {
+export function injectParams (api, params, opts) {
     if (isPlainObject(params)) {
         let keys = Object.keys(params)
         let ps = Array.isArray(api.params) ? api.params : isBoolean(api.params) ? keys : []
         let ds = Array.isArray(api.body) ? api.body : isBoolean(api.body) ? keys : []
         keys.forEach(key => {
+            let inRange = false
             if (ps.findIndex(p => p === key) !== -1) {
+                inRange = true
                 if (!opts.params) opts.params = {}
                 opts.params[key] = params[key]
-            } else if (ds.findIndex(p => p === key) !== -1) {
+            }
+            if (ds.findIndex(p => p === key) !== -1) {
+                inRange = true
                 if (!opts.data) opts.data = {}
                 opts.data[key] = params[key]
-            } else {
+            }
+            if (!inRange) {
                 if (['get', 'delete', 'head', 'options'].indexOf(api.method.toLowerCase()) !== -1) {
                     if (!opts.params) opts.params = {}
                     opts.params[key] = params[key]

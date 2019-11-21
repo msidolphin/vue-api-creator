@@ -1,4 +1,4 @@
-import transformOptions from '@/transformOptions'
+import transformOptions, { injectParams } from '@/transformOptions'
 import transformApi from '@/transformApi'
 import { tryCatch } from './utils'
 
@@ -161,4 +161,158 @@ describe('transformOptions.js', () => {
             }, 'Method Empty: http method cannot be empty')
         })
     })
+
+    describe('inject params', () => {
+ 
+        it('normally with plain object', () => {
+            const postApi = {
+                name: 'test',
+                method: 'POST',
+                path: 'test'
+            }
+            const getApi = {
+                name: 'test',
+                method: 'GET',
+                path: 'test'
+            }
+            let opts1 = injectParams(postApi, {
+                id: '123',
+                name: 'bob',
+                age: 18,
+                birthday: '1995-08-12'
+            }, {})
+            let opts2 = injectParams(getApi, {
+                id: '123',
+                name: 'bob',
+                age: 18,
+                birthday: '1995-08-12'
+            }, {})
+            expect(opts1).toEqual({
+                data: {
+                    id: '123',
+                    name: 'bob',
+                    age: 18,
+                    birthday: '1995-08-12'
+                }
+            })
+            expect(opts2).toEqual({
+                params: {
+                    id: '123',
+                    name: 'bob',
+                    age: 18,
+                    birthday: '1995-08-12'
+                }
+            })
+        })
+
+        it('normally whit not a plain object', () => {
+            const postApi = {
+                name: 'test',
+                method: 'POST',
+                path: 'test'
+            }
+            const getApi = {
+                name: 'test',
+                method: 'GET',
+                path: 'test'
+            }
+            let opts1 = injectParams(postApi, [1, 2, 3], {})
+            let opts2 = injectParams(getApi, 1, {})
+            expect(opts1).toEqual({
+                data: [1, 2, 3]
+            })
+            expect(opts2).toEqual({
+                params: 1
+            })
+        })
+
+        it('test params and body config with plain object', () => {
+            const api = {
+                name: 'test',
+                method: 'POST',
+                path: 'test',
+                body: ['name', 'age'],
+                params: ['id']
+            }    
+            let opts = injectParams(api, {
+                id: '123',
+                name: 'bob',
+                age: 18,
+                birthday: '1995-08-12'
+            }, {})
+            expect(opts).toEqual({
+                data: {
+                    name: 'bob',
+                    age: 18,
+                    birthday: '1995-08-12'
+                },
+                params: {
+                    id: '123'
+                }
+            })
+        })
+
+        it('test params and body config when not a plain object', () => {
+            const apiWithBody = {
+                name: 'test',
+                method: 'DELETE',
+                path: 'test',
+                body: true
+            }
+            let opts1 = injectParams(apiWithBody, [1, 2, 3], {})
+            let opts2 = injectParams(apiWithBody, 1, {})
+            let opts3 = injectParams(apiWithBody, 'abc', {})
+            let opts4 = injectParams(apiWithBody, true, {})
+            expect(opts1).toEqual({data: [1, 2, 3]})
+            expect(opts2).toEqual({data: 1})
+            expect(opts3).toEqual({data: 'abc'})
+            expect(opts4).toEqual({data: true})
+            const apiWithParams = {
+                name: 'test',
+                method: 'DELETE',
+                path: 'test',
+                params: true
+            }
+            let opts5 = injectParams(apiWithParams, [1, 2, 3], {})
+            let opts6 = injectParams(apiWithParams, 1, {})
+            let opts7 = injectParams(apiWithParams, 'abc', {})
+            let opts8 = injectParams(apiWithParams, true, {})
+            expect(opts5).toEqual({params: [1, 2, 3]})
+            expect(opts6).toEqual({params: 1})
+            expect(opts7).toEqual({params: 'abc'})
+            expect(opts8).toEqual({params: true})
+        })
+
+        test('when params and body type is boolean', () => {
+            const api = {
+                name: 'test',
+                method: 'POST',
+                path: 'test',
+                body: true,
+                params: true
+            }    
+            let opts = injectParams(api, {
+                id: '123',
+                name: 'bob',
+                age: 18,
+                birthday: '1995-08-12'
+            }, {})
+            expect(opts).toEqual({
+                data: {
+                    id: '123',
+                    name: 'bob',
+                    age: 18,
+                    birthday: '1995-08-12'
+                },
+                params: {
+                    id: '123',
+                    name: 'bob',
+                    age: 18,
+                    birthday: '1995-08-12'
+                }
+            })
+        })
+
+    })
+
 })

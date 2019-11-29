@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/msidolphin/vue-api-creator.svg?branch=master)](https://travis-ci.org/msidolphin/vue-api-creator)
 [![Coverage Status](https://coveralls.io/repos/github/msidolphin/vue-api-creator/badge.svg?branch=master)](https://coveralls.io/github/msidolphin/vue-api-creator?branch=master)
+[![codebeat badge](https://codebeat.co/badges/11889be9-13b5-4ba4-b401-81c472d1d5d6)](https://codebeat.co/projects/github-com-msidolphin-vue-api-creator-master)
 
 > An api manager bases on axios
 

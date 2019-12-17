@@ -165,6 +165,7 @@ export default {
 * `mock`: 是否开启mock.
 * `params`: 指定查询字符串参数集 (数组或布尔类型). 例如: params: ['id', 'name'] => /api/xxxx?id=1&name=2
 * `body`: 指定请求body参数集 (数组或布尔类型). 例如: body: ['ids', 'names'] => {ids: [1], names: ['a', 'b']}
+* `responseType`: response type. 可选值：['', 'arraybuffer', 'blob', 'document', 'json', 'text']. 默认为json
 
 #### 动态请求地址
 

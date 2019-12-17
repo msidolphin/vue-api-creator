@@ -1,11 +1,11 @@
-import transformOptions, { injectParams } from '@/transformOptions'
+import transformOptions, { injectParams, injectResponseType } from '@/transformOptions'
 import transformApi from '@/transformApi'
 import { tryCatch } from './utils'
 
 describe('transformOptions.js', () => {
     const modules = {
         pub: {
-            BASE_URL: '/pub',
+            BASE_URL: 'pub',
             api: [
                 {
                     name: 'list',
@@ -16,8 +16,15 @@ describe('transformOptions.js', () => {
                 {
                     name: 'detail',
                     desc: 'detail',
-                    path: 'GET',
+                    method: 'GET',
                     path: 'detail'
+                },
+                {
+                    name: 'download',
+                    desc: 'download',
+                    method: 'GET',
+                    path: 'download',
+                    responseType: 'blob'
                 }
             ]
         },
@@ -34,7 +41,7 @@ describe('transformOptions.js', () => {
                     {
                         name: 'detail',
                         desc: 'detail',
-                        path: 'GET',
+                        method: 'GET',
                         path: 'detail'
                     }
                 ]
@@ -51,7 +58,7 @@ describe('transformOptions.js', () => {
                     {
                         name: 'detail',
                         desc: 'detail',
-                        path: 'GET',
+                        method: 'GET',
                         path: 'detail'
                     },
                     {
@@ -92,7 +99,7 @@ describe('transformOptions.js', () => {
         mock: 'https://www.mock.com'
     }
     it('normally', () => {
-        const apis = transformApi(modules)
+        const apis = transformApi(JSON.parse(JSON.stringify(modules)))
         const opts = transformOptions(config, apis, {
             name: 'cms/news/list'
         })
@@ -100,8 +107,29 @@ describe('transformOptions.js', () => {
             url: '/api/cms/news/list',
             method: 'GET',
             desc: 'list',
+            responseType: 'json',
             headers: {}
         })
+    })
+    
+    it(`response type`, () => {
+        const apis = transformApi(JSON.parse(JSON.stringify(modules)))
+        const opts = transformOptions(config, apis, {
+            name: 'pub/download'
+        })
+        expect(opts).toEqual({
+            url: '/api/pub/download',
+            method: 'GET',
+            desc: 'download',
+            responseType: 'blob',
+            headers: {}
+        })
+    })
+
+    it('invalid response type', () => {
+        tryCatch(() => {
+            injectResponseType(null)
+        }, `Invalid reponse type: expected ['', 'arraybuffer', 'blob', 'document', 'json', 'text'], got null`)
     })
 
     it('data or params', () => {

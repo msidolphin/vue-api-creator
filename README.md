@@ -124,6 +124,7 @@ Your server response body shoule be like this:
 * `mock`: Enable mock to the request.
 * `params`: query params (Array or Boolean). eg: params: ['id', 'name'] => /api/xxxx?id=1&name=2
 * `body`: body params (Array or Boolean). eg: body: ['ids', 'names'] => {ids: [1], names: ['a', 'b']}
+* `responseType`: response type. accepted values: ['', 'arraybuffer', 'blob', 'document', 'json', 'text']. default: json
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)

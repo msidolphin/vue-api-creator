@@ -70,6 +70,17 @@ export function injectParams (api, params, opts) {
     return opts
 }
 
+export function injectResponseType (type) {
+    let legalTypes = ['', 'arraybuffer', 'blob', 'document', 'json', 'text']
+    let defaultType = 'json'
+    if (type === undefined) type = defaultType
+    if (type) type = type.toLowerCase()
+    if (legalTypes.indexOf(type) === -1) {
+        throw new Error(`Invalid reponse type: expected ['', 'arraybuffer', 'blob', 'document', 'json', 'text'], got ${type}`)
+    }
+    return type
+}
+
 export default function (config, apis, {name, params = {}, headers = {}}) {
     /* istanbul ignore else */
     if (isEmpty(name)) {
@@ -81,7 +92,6 @@ export default function (config, apis, {name, params = {}, headers = {}}) {
     }
     let [namespace, apiName] = getNamespaceAndApiName(name)
     let apiList = apis[namespace]
-
     if (!apiList) throw new Error(`Not Found: cannot find ${namespace} module.`)
     let index = apiList.findIndex(api => api.name === apiName)
     if (index === -1) throw new Error(`Not Found: cannot find ${apiName} api in ${namespace} module.`)
@@ -92,6 +102,7 @@ export default function (config, apis, {name, params = {}, headers = {}}) {
         url: targetApi.path,
         method: targetApi.method,
         desc: targetApi.desc,
+        responseType: injectResponseType(targetApi.responseType),
         headers
     }
     requestObj = injectParams(targetApi, params, requestObj)

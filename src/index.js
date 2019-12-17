@@ -34,7 +34,7 @@ export default {
     if (!config.modules) {
       throw new Error(`Invalid parameter: option "modules" expected Object, got empty.`)
     }
-    const apis = transformApi(config.modules)
+    const apis = transformApi(JSON.parse(JSON.stringify(config.modules)))
     Vue.prototype.$api = function http (name, params, headers = {}, returnOriginResponse = !!config.returnOriginResponse) {
       /* istanbul ignore next */
       if (!isPlainObject(headers)) {

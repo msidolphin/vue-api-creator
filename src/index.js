@@ -15,12 +15,14 @@ import { isPlainObject } from './utils'
  * baseURL
  * mock
  * returnOriginResponse
+ * enableEncodeURIComponent: false
  */
 export default {
   install: (Vue, settings) => {
     let defaultconfig = {
       permanentErrors: [500, 404, 504, 501, 415, 429],
-      axios: null
+      axios: null,
+      enableEncodeURIComponent: false
     }
     let config = extend(true, defaultconfig, settings)
     /* istanbul ignore next */

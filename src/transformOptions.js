@@ -24,7 +24,7 @@ function checkType (target, t, name) {
     return true
 }
 
-export function injectParams (api, params, opts) {
+export function injectParams (api, params, opts, config = {}) {
     if (isPlainObject(params)) {
         let keys = Object.keys(params)
         let ps = Array.isArray(api.params) ? api.params : isBoolean(api.params) ? keys : []
@@ -34,7 +34,7 @@ export function injectParams (api, params, opts) {
             if (ps.findIndex(p => p === key) !== -1) {
                 inRange = true
                 if (!opts.params) opts.params = {}
-                opts.params[key] = params[key]
+                opts.params[key] = config.enableEncodeURIComponent ? encodeURIComponent(params[key]) : params[key]
             }
             if (ds.findIndex(p => p === key) !== -1) {
                 inRange = true
@@ -44,7 +44,7 @@ export function injectParams (api, params, opts) {
             if (!inRange) {
                 if (['get', 'delete', 'head', 'options'].indexOf(api.method.toLowerCase()) !== -1) {
                     if (!opts.params) opts.params = {}
-                    opts.params[key] = params[key]
+                    opts.params[key] = config.enableEncodeURIComponent ? encodeURIComponent(params[key]) : params[key]
                 } else {
                     if (!opts.data) opts.data = {}
                     opts.data[key] = params[key]
@@ -105,6 +105,6 @@ export default function (config, apis, {name, params = {}, headers = {}}) {
         responseType: injectResponseType(targetApi.responseType),
         headers
     }
-    requestObj = injectParams(targetApi, params, requestObj)
+    requestObj = injectParams(targetApi, params, requestObj, config)
     return requestObj
 }

@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/msidolphin/vue-api-creator.svg?branch=master)](https://travis-ci.org/msidolphin/vue-api-creator)
 [![Coverage Status](https://coveralls.io/repos/github/msidolphin/vue-api-creator/badge.svg?branch=master)](https://coveralls.io/github/msidolphin/vue-api-creator?branch=master)
+[![codebeat badge](https://codebeat.co/badges/11889be9-13b5-4ba4-b401-81c472d1d5d6)](https://codebeat.co/projects/github-com-msidolphin-vue-api-creator-master)
 
 > 基于axios以及vue的前端请求工具，便于你的使用和api集中管理
 
@@ -150,6 +151,7 @@ export default {
 * `baseURL`: 请求基地址. (字符串或函数)
 * `modules`: api模块.
 * `axios`: axios实例或axios配置.
+* `enableEncodeURIComponent`: 使用EncodeURIComponent函数对字符进行编码.
 * `permanentErrors`: 失败状态码列表, 默认: [404, 415, 500, 501, 429].
 * `beforeRequest`: 请求发送前的回调函数.
 * `afterRequest`: 请求完成后的回调函数.

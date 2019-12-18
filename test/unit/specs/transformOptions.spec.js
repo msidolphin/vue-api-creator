@@ -341,6 +341,31 @@ describe('transformOptions.js', () => {
             })
         })
 
+        test('enable encodeURIComponent', () => {
+            const api = {
+                name: 'test',
+                method: 'GET',
+                path: 'test',
+                params: ['name']
+            }   
+            let opts = injectParams(api, {
+                id: '123',
+                name: '张三',
+                age: 18,
+                birthday: '1995-08-12'
+            }, {}, {
+                enableEncodeURIComponent: true
+            })
+            expect(opts).toEqual({
+                params: {
+                    id: '123',
+                    name: '%E5%BC%A0%E4%B8%89',
+                    age: '18',
+                    birthday: '1995-08-12'
+                }
+            })
+        })
+
     })
 
 })

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   methods: {
@@ -35,4 +34,3 @@ export default {
   }
 }
 </script>
-

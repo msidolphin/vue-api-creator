@@ -109,6 +109,7 @@ Your server response body shoule be like this:
 * `baseURL`: The base URL of the request. (String or Function)
 * `modules`: Api modules.
 * `axios`: axios instance.
+* `enableEncodeURIComponent`: encodes characters using EncodeURIComponent.
 * `permanentErrors`: Response fails if response status is in this list, default: [404, 415, 500, 501, 429].
 * `beforeRequest`: Called before the request is sent.
 * `afterRequest`: Called after the request was received.
